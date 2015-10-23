@@ -39,7 +39,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   Uncomment the <script> tag below when you're ready to add an interactive
   Google Map to your resume!
   -->
-  <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
   <meta name="viewport" content="width=device-width">
 </head>
@@ -104,28 +104,61 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   /*
       an opening and closing set of slash asterisks for block comments.
   */
+  var displaySkills = function() {
+      if (bio.skills.length > 0) {
+        $("#header").append(HTMLskillsStart);
+        for (i=0 ; i<bio.skills.length ; i++) 
+        {
+          var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
+          $("#skills").append(formattedSkill);
+        }
+      }
+    }
 
+  var displayWork = function() {
+      if (work.jobs.length > 0) {
+        for (job in work.jobs) 
+        {
+          $("#workExperience").append(HTMLworkStart);
+          var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+          var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+          var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+          var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+          var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+        
+          $(".work-entry:last").append(formattedEmployer + formattedTitle);
+          $(".work-entry:last").append(formattedLocation);
+          $(".work-entry:last").append(formattedDates);
+          $(".work-entry:last").append(formattedDescription);
+        }
+      }
+    }
+
+  displaySkills();
+  displayWork();
+  projects.display();
 
   if(document.getElementsByClassName("flex-item").length === 0) {
-    document.getElementById("topContacts").style.display = "none";
+    document.getElementById("topContacts").style.display="none";
   }
   if(document.getElementsByTagName("h1").length === 0) {
-    document.getElementById("header").style.display = "none";
+    document.getElementById("header").style.display="none";
   }
   if(document.getElementsByClassName("work-entry").length === 0) {
-    document.getElementById("workExperience").style.display = "none";
+    document.getElementById("workExperience").style.display="none";
   }
   if(document.getElementsByClassName("project-entry").length === 0) {
-    document.getElementById("projects").style.display = "none";
+    document.getElementById("projects").style.display="none";
   }
   if(document.getElementsByClassName("education-entry").length === 0) {
-    document.getElementById("education").style.display = "none";
+    document.getElementById("education").style.display="none";
   }
   if(document.getElementsByClassName("flex-item").length === 0) {
-    document.getElementById("letsConnect").style.display = "none";
+    document.getElementById("letsConnect").style.display="none";
   }
   if(document.getElementById("map") == undefined) {
-    document.getElementById("mapDiv").style.display = "none";
+    document.getElementById("mapDiv").style.display="none";
   }
+
   </script>
 </body>

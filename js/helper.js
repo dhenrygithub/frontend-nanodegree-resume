@@ -20,6 +20,7 @@ var HTMLmobile = "<li class='flex-item'><span class='orange-text'>mobile</span><
 var HTMLemail = "<li class='flex-item'><span class='orange-text'>email</span><span class='white-text'>%data%</span></li>";
 var HTMLtwitter = "<li class='flex-item'><span class='orange-text'>twitter</span><span class='white-text'>%data%</span></li>";
 var HTMLgithub = "<li class='flex-item'><span class='orange-text'>github</span><span class='white-text'>%data%</span></li>";
+var HTMLlinkedIn = "<li class='flex-item'><span class='orange-text'>linkedin</span><span class='white-text'>%data%</span></li>";
 var HTMLblog = "<li class='flex-item'><span class='orange-text'>blog</span><span class='white-text'>%data%</span></li>";
 var HTMLlocation = "<li class='flex-item'><span class='orange-text'>location</span><span class='white-text'>%data%</span></li>";
 
@@ -85,9 +86,34 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+  var x = loc.pageX;
+  var y = loc.pageY;
+    logClicks(x,y);
 });
 
+function locationizer( workObj ) {
+  var locations = [];
+
+  for (job in workObj.jobs) {
+    var newLoc = workObj.jobs[job].location;
+    locations.push(newLoc);
+  }
+  return locations;
+}
+
+function inName( nameString ) {
+  var finalName = nameString;
+  var names = nameString.trim().split(" ");
+  var firstName = names.shift();
+  var lastName = names.join(" ");
+
+  lastName = lastName.toUpperCase();
+  firstName = firstName.slice(0,1).toUpperCase() + 
+    firstName.slice(1).toLowerCase();
+  finalName = firstName + " " + lastName;
+  return finalName;
+  
+}
 
 
 /*
@@ -233,11 +259,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window 
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
+window.addEventListener('resize', function(e) {
   // Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+  map.fitBounds(mapBounds);
+});
