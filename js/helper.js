@@ -58,6 +58,7 @@ var HTMLonlineURL = "<br><a href='#'>%data%</a>";
 
 var internationalizeButton = "<button>Internationalize</button>";
 var googleMap = "<div id='map'></div>";
+var HTMLinfoWindow = "<div class='info-window'>%data%</div>";
 
 
 /*
@@ -123,7 +124,6 @@ https://developers.google.com/maps/documentation/javascript/reference
 */
 var map;    // declares a global map variable
 
-
 /*
 Start here! initializeMap() is called when page is loaded.
 */
@@ -187,17 +187,17 @@ function initializeMap() {
       title: name
     });
     
-    // infoWindows are the little helper windows that open when you click
-    // or hover over a pin on a map. They usually contain more information
-    // about a location.
-    var infoWindow = new google.maps.InfoWindow({
-      content: name
-    });
+
 
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
-    });
+      var formattedInfoWindow = HTMLinfoWindow.replace("%data%", marker.title);
+
+      infoWindow.close();
+      infoWindow.setContent(formattedInfoWindow);
+      infoWindow.open(map, marker);
+      });
 
     // this is where the pin actually gets added to the map.
     // bounds.extend() takes in a map location object
@@ -266,4 +266,13 @@ window.addEventListener('load', initializeMap);
 window.addEventListener('resize', function(e) {
   // Make sure the map bounds get updated on page resize
   map.fitBounds(mapBounds);
+});
+
+// Create only one infoWindow so you can close it 
+// when a new marker is clicked
+// infoWindows are the little helper windows that open when you click
+// or hover over a pin on a map. They usually contain more information
+// about a location.
+var infoWindow = new google.maps.InfoWindow({
+  content: ""
 });

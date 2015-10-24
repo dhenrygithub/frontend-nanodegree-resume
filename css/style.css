@@ -130,6 +130,16 @@ a {
   padding: 10px;
 }
 
+.info-window {
+  height : 50px;
+  width : 100px;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
 .center-content {
   padding-top: 2.5%;
   padding-left: 5%;
